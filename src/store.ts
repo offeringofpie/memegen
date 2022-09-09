@@ -1,4 +1,4 @@
-import memeList from './memes.json';
+import memeList from "./memes.json";
 
 class Store {
   state: any;
@@ -30,11 +30,11 @@ class Store {
 }
 
 const store = new Store({
-  meme: memeList.data.memes[11],
-  text0: 'text 0',
-  text1: 'text 1',
-  text2: 'text 2',
-  text3: 'text 3',
-  text4: 'text 4',
+  meme: memeList.data.memes[46],
+  text0: "text 0",
+  text1: "text 1",
+  text2: "text 2",
+  text3: "text 3",
+  text4: "text 4",
 });
 export default store;

@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import store from './store';
-import memeList from './memes.json';
+import { useState } from "react";
+import store from "./store";
+import memeList from "./memes.json";
 
-import MemeContainer from './components/MemeContainer';
-import List from './components/List';
-import TextBoxes from './components/TextBoxes';
+import MemeContainer from "./components/MemeContainer";
+import List from "./components/List";
+import TextBoxes from "./components/TextBoxes";
 
-import './App.css';
+import "./App.css";
 
 const draw = (ctx: CanvasRenderingContext2D) => {
   let image = new Image();
@@ -31,22 +31,22 @@ const draw = (ctx: CanvasRenderingContext2D) => {
         ctx.canvas.height
       );
 
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
 
       if (state.meme.boxes) {
         state.meme.boxes.forEach((box: any, i: number) => {
-          ctx.fillStyle = state.meme.color || '#FFFFFF';
-          ctx.strokeStyle = state.meme.stroke || '#000000';
+          ctx.fillStyle = state.meme.color || "#FFFFFF";
+          ctx.strokeStyle = state.meme.stroke || "#000000";
           ctx.font = state.meme.font
             ? `${state.meme.font.size}px ${state.meme.font.family}`
-            : '48px Anton';
+            : "48px Anton";
           if (box.size) {
-            ctx.font = ctx.font.replace(ctx.font.split('px')[0], box.size);
+            ctx.font = ctx.font.replace(ctx.font.split("px")[0], box.size);
           }
-          let lines = state[`text${i}`].split('\n');
+          let lines = state[`text${i}`].split("\n");
           if (lines.length > 1) {
-            let fontSize = ctx.font.split('px')[0];
+            let fontSize = ctx.font.split("px")[0];
             ctx.font = ctx.font.replace(
               fontSize,
               `${Math.max(
@@ -56,7 +56,8 @@ const draw = (ctx: CanvasRenderingContext2D) => {
             );
           }
           lines.forEach((line: string, i: number) => {
-            const metrics = ctx.measureText(line);
+            let text = state.meme.uppercase ? line.toUpperCase() : line;
+            const metrics = ctx.measureText(text);
             const fontHeight =
               metrics.actualBoundingBoxAscent +
               metrics.actualBoundingBoxDescent;
@@ -68,8 +69,8 @@ const draw = (ctx: CanvasRenderingContext2D) => {
             if (box.angle) {
               ctx.rotate((box.angle * Math.PI) / 180);
             }
-            ctx.fillText(line, 0, 0);
-            ctx.strokeText(line, 0, 0);
+            ctx.fillText(text, 0, 0);
+            ctx.strokeText(text, 0, 0);
             ctx.restore();
           });
         });

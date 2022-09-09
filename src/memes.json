@@ -9,6 +9,7 @@
         "width": 1200,
         "height": 1200,
         "box_count": 2,
+        "uppercase": true,
         "font": { "size": 80, "family": "Anton" },
         "boxes": [{ "pos": [900, 350] }, { "pos": [900, 950] }]
       },
@@ -33,6 +34,7 @@
         "url": "https://i.imgflip.com/1ur9b0.jpg",
         "width": 1200,
         "height": 800,
+        "uppercase": true,
         "box_count": 3,
         "boxes": [
           { "pos": [650, 100] },
@@ -46,6 +48,7 @@
         "url": "https://i.imgflip.com/261o3j.jpg",
         "width": 761,
         "height": 1024,
+        "uppercase": true,
         "box_count": 5,
         "boxes": [
           { "pos": [150, 500] },
@@ -93,6 +96,7 @@
         "url": "https://i.imgflip.com/22bdq6.jpg",
         "width": 804,
         "height": 767,
+        "uppercase": true,
         "box_count": 3,
         "boxes": [
           { "size": 25, "pos": [250, 160] },
@@ -150,6 +154,7 @@
         "url": "https://i.imgflip.com/2fm6x.jpg",
         "width": 298,
         "height": 403,
+        "uppercase": true,
         "stroke": "rgba(0,0,0,0.3)",
         "font": { "size": 40, "family": "Impact" },
         "box_count": 2,
@@ -161,6 +166,7 @@
         "url": "https://i.imgflip.com/28j0te.jpg",
         "width": 900,
         "height": 645,
+        "uppercase": true,
         "box_count": 3,
         "boxes": [
           { "pos": [350, 100] },
@@ -174,7 +180,13 @@
         "url": "https://i.imgflip.com/1c1uej.jpg",
         "width": 720,
         "height": 709,
-        "box_count": 3
+        "uppercase": true,
+        "box_count": 3,
+        "boxes": [
+          { "pos": [360, 330], "size": 35 },
+          { "pos": [180, 660], "size": 30 },
+          { "pos": [540, 660], "size": 30 }
+        ]
       },
       {
         "id": "438680",
@@ -182,7 +194,16 @@
         "url": "https://i.imgflip.com/9ehk.jpg",
         "width": 400,
         "height": 387,
-        "box_count": 2
+        "color": "#000000",
+        "font": {
+          "size": 30,
+          "family": "\"Comic Sans MS\", \"Comic Sans\", cursive"
+        },
+        "box_count": 2,
+        "boxes": [
+          { "pos": [100, 30], "size": 20 },
+          { "pos": [315, 30], "size": 20 }
+        ]
       },
       {
         "id": "27813981",
@@ -190,7 +211,12 @@
         "url": "https://i.imgflip.com/gk5el.jpg",
         "width": 480,
         "height": 601,
-        "box_count": 2
+        "uppercase": true,
+        "box_count": 2,
+        "boxes": [
+          { "pos": [240, 250], "size": 40 },
+          { "pos": [240, 550], "size": 40 }
+        ]
       },
       {
         "id": "93895088",
@@ -198,7 +224,15 @@
         "url": "https://i.imgflip.com/1jwhww.jpg",
         "width": 857,
         "height": 1202,
-        "box_count": 4
+        "color": "#000000",
+        "font": { "size": 48, "family": "Arial" },
+        "box_count": 4,
+        "boxes": [
+          { "pos": [210, 100] },
+          { "pos": [210, 400] },
+          { "pos": [210, 700] },
+          { "pos": [210, 1000] }
+        ]
       },
       {
         "id": "119139145",
@@ -206,7 +240,12 @@
         "url": "https://i.imgflip.com/1yxkcp.jpg",
         "width": 600,
         "height": 446,
-        "box_count": 2
+        "uppercase": true,
+        "box_count": 2,
+        "boxes": [
+          { "pos": [300, 60], "size": 40 },
+          { "pos": [160, 320], "size": 60 }
+        ]
       },
       {
         "id": "61579",
@@ -214,7 +253,12 @@
         "url": "https://i.imgflip.com/1bij.jpg",
         "width": 568,
         "height": 335,
-        "box_count": 2
+        "uppercase": true,
+        "box_count": 2,
+        "boxes": [
+          { "pos": [284, 60], "size": 40 },
+          { "pos": [284, 320], "size": 40 }
+        ]
       },
       {
         "id": "188390779",
@@ -222,7 +266,14 @@
         "url": "https://i.imgflip.com/345v97.jpg",
         "width": 680,
         "height": 438,
-        "box_count": 2
+        "color": "#000000",
+        "stroke": "rgba(255,255,255,0)",
+        "font": { "size": 30, "family": "Arial" },
+        "box_count": 2,
+        "boxes": [
+          { "pos": [170, 45], "size": 30 },
+          { "pos": [510, 45], "size": 30 }
+        ]
       },
       {
         "id": "252600902",
@@ -230,7 +281,13 @@
         "url": "https://i.imgflip.com/46e43q.png",
         "width": 960,
         "height": 540,
-        "box_count": 2
+        "font": { "size": 30, "family": "Arial" },
+        "stroke": "rgba(255,255,255,0)",
+        "box_count": 2,
+        "boxes": [
+          { "pos": [300, 300], "size": 25 },
+          { "pos": [610, 100], "size": 25 }
+        ]
       },
       {
         "id": "97984",
@@ -238,7 +295,12 @@
         "url": "https://i.imgflip.com/23ls.jpg",
         "width": 500,
         "height": 375,
-        "box_count": 2
+        "box_count": 2,
+        "uppercase": true,
+        "boxes": [
+          { "pos": [250, 60], "size": 40 },
+          { "pos": [180, 350], "size": 40 }
+        ]
       },
       {
         "id": "101470",
@@ -246,7 +308,9 @@
         "url": "https://i.imgflip.com/26am.jpg",
         "width": 500,
         "height": 437,
-        "box_count": 2
+        "uppercase": true,
+        "box_count": 2,
+        "boxes": [{ "pos": [250, 60] }, { "pos": [250, 400] }]
       },
       {
         "id": "178591752",
@@ -254,7 +318,10 @@
         "url": "https://i.imgflip.com/2ybua0.png",
         "width": 800,
         "height": 582,
-        "box_count": 2
+        "color": "#000000",
+        "font": { "family": "Arial", "size": 48 },
+        "box_count": 2,
+        "boxes": [{ "pos": [550, 90] }, { "pos": [550, 400] }]
       },
       {
         "id": "1035805",
@@ -262,7 +329,16 @@
         "url": "https://i.imgflip.com/m78d.jpg",
         "width": 500,
         "height": 649,
-        "box_count": 4
+        "color": "#000000",
+        "stroke": "rgba(255,255,255,0)",
+        "box_count": 4,
+        "font": { "family": "Arial", "size": 20 },
+        "boxes": [
+          { "pos": [300, 25] },
+          { "pos": [75, 267], "size": 14 },
+          { "pos": [205, 275], "size": 14 },
+          { "pos": [365, 280], "size": 14 }
+        ]
       },
       {
         "id": "102156234",
@@ -270,7 +346,9 @@
         "url": "https://i.imgflip.com/1otk96.jpg",
         "width": 502,
         "height": 353,
-        "box_count": 2
+        "uppercase": true,
+        "box_count": 2,
+        "boxes": [{ "pos": [250, 60] }, { "pos": [250, 340] }]
       },
       {
         "id": "110163934",
@@ -278,7 +356,10 @@
         "url": "https://i.imgflip.com/1tl71a.jpg",
         "width": 1654,
         "height": 930,
-        "box_count": 2
+        "uppercase": true,
+        "font": { "family": "Impact", "size": 60 },
+        "box_count": 2,
+        "boxes": [{ "pos": [450, 80] }, { "pos": [1000, 850] }]
       },
       {
         "id": "91538330",
@@ -286,7 +367,10 @@
         "url": "https://i.imgflip.com/1ihzfe.jpg",
         "width": 2118,
         "height": 1440,
-        "box_count": 2
+        "uppercase": true,
+        "font": { "family": "Impact", "size": 120 },
+        "box_count": 2,
+        "boxes": [{ "pos": [1059, 170] }, { "pos": [1059, 1400] }]
       },
       {
         "id": "79132341",
@@ -294,7 +378,16 @@
         "url": "https://i.imgflip.com/1b42wl.jpg",
         "width": 500,
         "height": 680,
-        "box_count": 3
+        "color": "#000000",
+        "stroke": "rgba(255,255,255,0)",
+        "font": { "family": "Arial", "size": 20 },
+
+        "box_count": 3,
+        "boxes": [
+          { "pos": [350, 150] },
+          { "pos": [120, 390] },
+          { "pos": [350, 520] }
+        ]
       },
       {
         "id": "195515965",
@@ -302,7 +395,16 @@
         "url": "https://i.imgflip.com/38el31.jpg",
         "width": 750,
         "height": 798,
-        "box_count": 4
+        "color": "#000000",
+        "stroke": "rgba(255,255,255,0)",
+        "font": { "family": "Arial", "size": 48 },
+        "box_count": 4,
+        "boxes": [
+          { "pos": [185, 100] },
+          { "pos": [185, 300] },
+          { "pos": [185, 500] },
+          { "pos": [185, 700] }
+        ]
       },
       {
         "id": "148909805",
@@ -310,31 +412,23 @@
         "url": "https://i.imgflip.com/2gnnjh.jpg",
         "width": 923,
         "height": 768,
-        "box_count": 2
+        "color": "#000000",
+        "stroke": "rgba(255,255,255,0)",
+        "font": { "family": "Arial", "size": 48 },
+        "box_count": 2,
+        "boxes": [{ "pos": [461, 80] }, { "pos": [461, 190] }]
       },
       {
         "id": "161865971",
         "name": "Marked Safe From",
         "url": "https://i.imgflip.com/2odckz.jpg",
+        "color": "#000000",
+        "stroke": "rgba(255,255,255,0)",
+        "font": { "family": "Arial", "size": 45 },
         "width": 618,
         "height": 499,
-        "box_count": 2
-      },
-      {
-        "id": "180190441",
-        "name": "They're The Same Picture",
-        "url": "https://i.imgflip.com/2za3u1.jpg",
-        "width": 1363,
-        "height": 1524,
-        "box_count": 3
-      },
-      {
-        "id": "216951317",
-        "name": "Guy Holding Cardboard Sign",
-        "url": "https://i.imgflip.com/3l60ph.jpg",
-        "width": 700,
-        "height": 702,
-        "box_count": 2
+        "box_count": 2,
+        "boxes": [{ "pos": [309, 300] }, { "pos": [309, 460] }]
       },
       {
         "id": "226297822",
@@ -342,7 +436,15 @@
         "url": "https://i.imgflip.com/3qqcim.png",
         "width": 640,
         "height": 881,
-        "box_count": 3
+        "color": "#000000",
+        "stroke": "rgba(255,255,255,0)",
+        "font": { "family": "Arial", "size": 30 },
+        "box_count": 3,
+        "boxes": [
+          { "pos": [150, 90] },
+          { "pos": [150, 390] },
+          { "pos": [150, 690] }
+        ]
       },
       {
         "id": "61520",
@@ -350,7 +452,9 @@
         "url": "https://i.imgflip.com/1bgw.jpg",
         "width": 552,
         "height": 414,
-        "box_count": 2
+        "uppercase": true,
+        "box_count": 2,
+        "boxes": [{ "pos": [276, 60] }, { "pos": [276, 400] }]
       },
       {
         "id": "100777631",
@@ -358,7 +462,14 @@
         "url": "https://i.imgflip.com/1o00in.jpg",
         "width": 1587,
         "height": 1425,
-        "box_count": 3
+        "uppercase": true,
+        "font": { "family": "Impact", "size": 100 },
+        "box_count": 3,
+        "boxes": [
+          { "pos": [400, 450] },
+          { "pos": [1350, 390], "size": 80, "angle": -15 },
+          { "pos": [793, 1400] }
+        ]
       },
       {
         "id": "61556",
@@ -366,7 +477,9 @@
         "url": "https://i.imgflip.com/1bhw.jpg",
         "width": 640,
         "height": 480,
-        "box_count": 2
+        "uppercase": true,
+        "box_count": 2,
+        "boxes": [{ "pos": [320, 70] }, { "pos": [320, 460] }]
       },
       {
         "id": "5496396",
@@ -374,7 +487,9 @@
         "url": "https://i.imgflip.com/39t1o.jpg",
         "width": 600,
         "height": 400,
-        "box_count": 2
+        "uppercase": true,
+        "box_count": 2,
+        "boxes": [{ "pos": [300, 65] }, { "pos": [300, 390] }]
       },
       {
         "id": "114585149",
@@ -382,7 +497,15 @@
         "url": "https://i.imgflip.com/1w7ygt.jpg",
         "width": 1269,
         "height": 2825,
-        "box_count": 4
+        "font": { "family": "Impact", "size": 100 },
+        "uppercase": true,
+        "box_count": 4,
+        "boxes": [
+          { "pos": [635, 150] },
+          { "pos": [635, 850] },
+          { "pos": [635, 1550] },
+          { "pos": [635, 2250] }
+        ]
       },
       {
         "id": "55311130",
@@ -390,7 +513,10 @@
         "url": "https://i.imgflip.com/wxica.jpg",
         "width": 580,
         "height": 282,
-        "box_count": 2
+        "font": { "family": "Impact", "size": 40 },
+        "uppercase": true,
+        "box_count": 2,
+        "boxes": [{ "pos": [150, 60] }, { "pos": [150, 270] }]
       },
       {
         "id": "3218037",
@@ -398,7 +524,10 @@
         "url": "https://i.imgflip.com/1wz1x.jpg",
         "width": 300,
         "height": 418,
-        "box_count": 2
+        "font": { "family": "Impact", "size": 30 },
+        "uppercase": true,
+        "box_count": 2,
+        "boxes": [{ "pos": [150, 40] }, { "pos": [150, 250] }]
       },
       {
         "id": "123999232",
@@ -406,7 +535,14 @@
         "url": "https://i.imgflip.com/21tqf4.jpg",
         "width": 1280,
         "height": 1236,
-        "box_count": 2
+        "color": "#000000",
+        "stroke": "rgba(255,255,255,0)",
+        "font": {
+          "family": "\"Comic Sans MS\", \"Comic Sans\", cursive",
+          "size": 60
+        },
+        "box_count": 1,
+        "boxes": [{ "pos": [350, 800] }]
       },
       {
         "id": "89370399",
@@ -414,7 +550,9 @@
         "url": "https://i.imgflip.com/1h7in3.jpg",
         "width": 702,
         "height": 395,
-        "box_count": 2
+        "uppercase": true,
+        "box_count": 2,
+        "boxes": [{ "pos": [351, 70] }, { "pos": [351, 370] }]
       },
       {
         "id": "124055727",
@@ -422,7 +560,9 @@
         "url": "https://i.imgflip.com/21uy0f.jpg",
         "width": 600,
         "height": 471,
-        "box_count": 2
+        "uppercase": true,
+        "box_count": 2,
+        "boxes": [{ "pos": [300, 70] }, { "pos": [300, 450] }]
       },
       {
         "id": "134797956",
@@ -430,7 +570,16 @@
         "url": "https://i.imgflip.com/2896ro.jpg",
         "width": 640,
         "height": 1800,
-        "box_count": 5
+        "font": { "family": "Impact", "size": 48 },
+        "uppercase": true,
+        "box_count": 5,
+        "boxes": [
+          { "pos": [320, 300] },
+          { "pos": [320, 660] },
+          { "pos": [320, 1020] },
+          { "pos": [320, 1380] },
+          { "pos": [320, 1740] }
+        ]
       },
       {
         "id": "99683372",
@@ -438,7 +587,10 @@
         "url": "https://i.imgflip.com/1nck6k.jpg",
         "width": 640,
         "height": 631,
-        "box_count": 2
+        "color": "#000000",
+        "font": { "size": 48, "family": "Arial" },
+        "box_count": 2,
+        "boxes": [{ "pos": [160, 120] }, { "pos": [160, 440] }]
       },
       {
         "id": "28251713",
@@ -446,7 +598,9 @@
         "url": "https://i.imgflip.com/gtj5t.jpg",
         "width": 620,
         "height": 465,
-        "box_count": 2
+        "uppercase": true,
+        "box_count": 2,
+        "boxes": [{ "pos": [310, 70] }, { "pos": [310, 450] }]
       },
       {
         "id": "21735",
@@ -454,7 +608,11 @@
         "url": "https://i.imgflip.com/grr.jpg",
         "width": 568,
         "height": 700,
-        "box_count": 2
+        "color": "#000000",
+        "stroke": "rgba(255,255,255,0)",
+        "font": { "size": 25, "family": "Arial" },
+        "box_count": 2,
+        "boxes": [{ "pos": [433, 75] }, { "pos": [433, 305] }]
       },
       {
         "id": "155067746",
@@ -462,7 +620,15 @@
         "url": "https://i.imgflip.com/2kbn1e.jpg",
         "width": 1893,
         "height": 1893,
-        "box_count": 3
+        "color": "#000000",
+        "stroke": "rgba(255,255,255,0)",
+        "font": { "size": 120, "family": "Arial" },
+        "box_count": 3,
+        "boxes": [
+          { "pos": [946, 200] },
+          { "pos": [946, 400] },
+          { "pos": [946, 600] }
+        ]
       },
       {
         "id": "135678846",
