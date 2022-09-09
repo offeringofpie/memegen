@@ -1,11 +1,13 @@
 import { useRef, useEffect } from "react";
+import store from "../../store";
 
 const useCanvas = (draw: any) => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
     const canvas: any = canvasRef.current;
-    const context = canvas.getContext("2d");
+    const context = canvas.getContext("2d", { alpha: false });
+    store.setState({ canvas: canvas });
     let frameCount = 0;
     let animationFrameId: number;
 

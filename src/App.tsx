@@ -5,12 +5,16 @@ import memeList from "./memes.json";
 import MemeContainer from "./components/MemeContainer";
 import List from "./components/List";
 import TextBoxes from "./components/TextBoxes";
+import Buttons from "./components/Buttons";
 
 import "./App.css";
 
 const draw = (ctx: CanvasRenderingContext2D) => {
-  let image = new Image();
+  const image = new Image();
   const state = store.getState();
+
+  image.crossOrigin = "anonymous";
+  ctx.imageSmoothingEnabled = true;
 
   if (state) {
     image.src = state.meme.url;
@@ -100,6 +104,7 @@ function App() {
     <>
       <List list={memeList.data.memes} onChange={onChange} />
       <TextBoxes boxes={state.meme?.boxes} />
+      <Buttons />
       <MemeContainer draw={draw} />
     </>
   );

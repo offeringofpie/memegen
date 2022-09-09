@@ -636,7 +636,14 @@
         "url": "https://i.imgflip.com/28s2gu.jpg",
         "width": 1280,
         "height": 1440,
-        "box_count": 3
+        "box_count": 3,
+        "uppercase": true,
+        "font": { "size": 80, "family": "Impact" },
+        "boxes": [
+          { "pos": [300, 500] },
+          { "pos": [870, 650] },
+          { "pos": [870, 1350] }
+        ]
       },
       {
         "id": "259237855",
@@ -644,7 +651,9 @@
         "url": "https://i.imgflip.com/4acd7j.png",
         "width": 470,
         "height": 470,
-        "box_count": 2
+        "uppercase": true,
+        "box_count": 2,
+        "boxes": [{ "pos": [235, 60] }, { "pos": [235, 420] }]
       },
       {
         "id": "84341851",
@@ -652,15 +661,9 @@
         "url": "https://i.imgflip.com/1e7ql7.jpg",
         "width": 700,
         "height": 325,
-        "box_count": 2
-      },
-      {
-        "id": "175540452",
-        "name": "Unsettled Tom",
-        "url": "https://i.imgflip.com/2wifvo.jpg",
-        "width": 680,
-        "height": 550,
-        "box_count": 2
+        "uppercase": true,
+        "box_count": 2,
+        "boxes": [{ "pos": [235, 60] }, { "pos": [500, 320] }]
       },
       {
         "id": "196652226",
@@ -668,15 +671,11 @@
         "url": "https://i.imgflip.com/392xtu.jpg",
         "width": 822,
         "height": 960,
-        "box_count": 2
-      },
-      {
-        "id": "17496002",
-        "name": "Leonardo Dicaprio Wolf Of Wall Street",
-        "url": "https://i.imgflip.com/af002.jpg",
-        "width": 500,
-        "height": 589,
-        "box_count": 2
+        "color": "#000000",
+        "stroke": "rgba(255,255,255,0)",
+        "font": { "size": 60, "family": "Arial" },
+        "box_count": 2,
+        "boxes": [{ "pos": [411, 80] }, { "pos": [411, 180] }]
       },
       {
         "id": "132769734",
@@ -684,7 +683,9 @@
         "url": "https://i.imgflip.com/271ps6.jpg",
         "width": 680,
         "height": 979,
-        "box_count": 2
+        "uppercase": true,
+        "box_count": 2,
+        "boxes": [{ "pos": [320, 720] }, { "pos": [150, 820] }]
       },
       {
         "id": "6235864",
@@ -692,7 +693,14 @@
         "url": "https://i.imgflip.com/3pnmg.jpg",
         "width": 423,
         "height": 600,
-        "box_count": 3
+        "font": { "size": 35, "family": "Impact" },
+        "uppercase": true,
+        "box_count": 3,
+        "boxes": [
+          { "pos": [210, 180] },
+          { "pos": [210, 380] },
+          { "pos": [210, 580] }
+        ]
       },
       {
         "id": "101288",
