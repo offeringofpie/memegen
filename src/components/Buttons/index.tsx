@@ -19,7 +19,7 @@ const Buttons = (props: any) => {
     if (state.canvas) {
       const url = state.canvas.toDataURL("image/jpeg", 0.7);
       const myHeaders = new Headers();
-      myHeaders.append("Authorization", "Client-ID c0b268b2b810eff");
+      myHeaders.append("Authorization", `Client-ID ${process.env.CLIENT_ID}`);
 
       const formdata = new FormData();
       formdata.append("image", url);
