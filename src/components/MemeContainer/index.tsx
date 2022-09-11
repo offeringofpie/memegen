@@ -7,7 +7,11 @@ const Canvas = (props: any) => {
   const canvasRef = useCanvas(draw);
 
   return (
-    <canvas className={`my-4 ${style.canvas}`} ref={canvasRef} {...rest} />
+    <canvas
+      className={`max-w-full lg:max-w-max-w-2xl my-4 ${style.canvas}`}
+      ref={canvasRef}
+      {...rest}
+    />
   );
 };
 
