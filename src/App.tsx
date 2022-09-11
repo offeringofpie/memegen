@@ -103,7 +103,7 @@ function App() {
         return meme.id == ev.target.value;
       }
     });
-    store.setState({ meme: selectedMeme });
+    store.setState({ meme: selectedMeme, meme_id: ev.target.value });
     setState(selectedMeme);
   };
 
