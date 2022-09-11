@@ -5,7 +5,7 @@ const Buttons = (props: any) => {
   const state = store.getState();
   const onDownload = (event: any) => {
     if (state.canvas) {
-      const url = state.canvas.toDataURL("image/png");
+      const url = state.canvas.toDataURL("image/jpeg", 0.7);
       const link = document.createElement("a");
       link.download = state.meme.name
         .replace(/\s+/g, "-")
@@ -17,7 +17,7 @@ const Buttons = (props: any) => {
   };
   const onUpload = (event: any) => {
     if (state.canvas) {
-      const url = state.canvas.toDataURL("image/png");
+      const url = state.canvas.toDataURL("image/jpeg", 0.7);
       const myHeaders = new Headers();
       myHeaders.append("Authorization", "Client-ID c0b268b2b810eff");
 
@@ -38,9 +38,13 @@ const Buttons = (props: any) => {
     }
   };
   return (
-    <div>
-      <button onClick={onDownload}>Download</button>
-      <button onClick={onUpload}>Upload to Imgur</button>
+    <div className="btn-group">
+      <button onClick={onDownload} className="btn btn-outline btn-primary">
+        Download
+      </button>
+      <button onClick={onUpload} className="btn btn-outline btn-secondary">
+        Upload to Imgur
+      </button>
     </div>
   );
 };

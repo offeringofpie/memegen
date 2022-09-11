@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import store from '../../store';
+import React, { useState } from "react";
+import store from "../../store";
 
 const TextBoxes = (props: any) => {
   const storeState = store.getState();
@@ -10,12 +10,12 @@ const TextBoxes = (props: any) => {
 
   const onChange = (ev: any) => {
     store.setState({
-      [ev.target.id]: ev.target.value.replace(/\n/g, '\n'),
+      [ev.target.id]: ev.target.value.replace(/\n/g, "\n"),
     });
   };
 
   return (
-    <div>
+    <div className="mt-10">
       {state.meme.boxes.map((k: any, i: number) => (
         <textarea
           name="first"
@@ -23,9 +23,9 @@ const TextBoxes = (props: any) => {
           id={`text${i}`}
           cols={20}
           rows={3}
-          defaultValue={state[`text${i}`]}
-          onChange={onChange}
-        ></textarea>
+          placeholder={state[`text${i}`]}
+          className="textarea textarea-accent w-full max-w-xs my-2"
+          onChange={onChange}></textarea>
       ))}
     </div>
   );

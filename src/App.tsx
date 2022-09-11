@@ -65,6 +65,8 @@ const draw = (ctx: CanvasRenderingContext2D) => {
             const fontHeight =
               metrics.actualBoundingBoxAscent +
               metrics.actualBoundingBoxDescent;
+            ctx.fillStyle = box.color || ctx.fillStyle;
+            ctx.strokeStyle = box.stroke || ctx.strokeStyle;
             ctx.save();
             ctx.translate(
               box.pos[0],
@@ -73,8 +75,13 @@ const draw = (ctx: CanvasRenderingContext2D) => {
             if (box.angle) {
               ctx.rotate((box.angle * Math.PI) / 180);
             }
-            ctx.fillText(text, 0, 0);
+
+            ctx.shadowColor = ctx.strokeStyle as string;
+            ctx.shadowBlur = 5;
+            ctx.lineWidth = 2;
             ctx.strokeText(text, 0, 0);
+            ctx.shadowBlur = 0;
+            ctx.fillText(text, 0, 0);
             ctx.restore();
           });
         });
@@ -102,10 +109,30 @@ function App() {
 
   return (
     <>
-      <List list={memeList.data.memes} onChange={onChange} />
-      <TextBoxes boxes={state.meme?.boxes} />
-      <Buttons />
-      <MemeContainer draw={draw} />
+      <div className="drawer drawer-mobile">
+        <input id="drawer" type="checkbox" className="drawer-toggle" />
+        <div className="drawer-content flex flex-col items-center justify-center">
+          <label
+            htmlFor="drawer"
+            className="btn btn-circle btn-ghost drawer-button text-xl lg:hidden absolute top-2 left-2 z-40">
+            &#9778;
+          </label>
+          <List list={memeList.data.memes} onChange={onChange} />
+          <MemeContainer draw={draw} />
+          <Buttons />
+        </div>
+        <div className="drawer-side">
+          <label htmlFor="drawer" className="drawer-overlay"></label>
+          <div className="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content relative">
+            <label
+              htmlFor="drawer"
+              className="btn btn-circle btn-ghost drawer-button lg:hidden text-lg absolute top-2 right-2 z-40">
+              &times;
+            </label>
+            <TextBoxes boxes={state.meme?.boxes} />
+          </div>
+        </div>
+      </div>
     </>
   );
 }

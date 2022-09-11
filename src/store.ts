@@ -30,7 +30,9 @@ class Store {
 }
 
 const store = new Store({
-  meme: memeList.data.memes[52],
+  meme: memeList.data.memes[
+    Math.floor(Math.random() * memeList.data.memes.length)
+  ],
   text0: "text 0",
   text1: "text 1",
   text2: "text 2",
