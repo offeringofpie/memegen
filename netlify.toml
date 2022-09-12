@@ -10,4 +10,4 @@
   functions = "./netlify/dist"
 
 [[redirects]]
-/generate /.netlify/functions/meme 200
+  /generate /.netlify/functions/meme 200
