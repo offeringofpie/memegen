@@ -3,8 +3,23 @@ import fetch from "isomorphic-fetch";
 
 let imgUrl = "https://cdn.jlopes.eu/memes/21tqf4.jpg";
 
+const getMemeList = async () => {
+  try {
+    const response = await fetch("https://memes.jlopes.eu/memes.json")
+      .then((res) => res.json())
+      .then((data) => {
+        return data.data.memes;
+      });
+    return response;
+  } catch (err) {
+    return err;
+  }
+};
+
 const handler: Handler = async (event, context) => {
-  const { fileURL } = event.queryStringParameters;
+  const { name } = event.queryStringParameters;
+
+  const memeList = await getMemeList();
 
   let image;
   try {

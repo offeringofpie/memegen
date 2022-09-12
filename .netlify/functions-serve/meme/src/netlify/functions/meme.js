@@ -2901,8 +2901,19 @@ __export(meme_exports, {
 });
 var import_isomorphic_fetch = __toESM(require_fetch_npm_node(), 1);
 var imgUrl = "https://cdn.jlopes.eu/memes/21tqf4.jpg";
+var getMemeList = async () => {
+  try {
+    const response = await (0, import_isomorphic_fetch.default)("https://memes.jlopes.eu/memes.json").then((res) => res.json()).then((data) => {
+      return data.data.memes;
+    });
+    return response;
+  } catch (err) {
+    return err;
+  }
+};
 var handler = async (event, context) => {
-  const { fileURL } = event.queryStringParameters;
+  const { name } = event.queryStringParameters;
+  const memeList = await getMemeList();
   let image;
   try {
     const result = await (0, import_isomorphic_fetch.default)(imgUrl, {
