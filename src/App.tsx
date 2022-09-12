@@ -1,19 +1,19 @@
-import { useState } from "react";
-import store from "./store";
-import memeList from "./memes.json";
+import { useState } from 'react';
+import store from './store';
+import memeList from './memes.json';
 
-import MemeContainer from "./components/MemeContainer";
-import List from "./components/List";
-import TextBoxes from "./components/TextBoxes";
-import Buttons from "./components/Buttons";
+import MemeContainer from './components/MemeContainer';
+import List from './components/List';
+import TextBoxes from './components/TextBoxes';
+import Buttons from './components/Buttons';
 
-import "./App.css";
+import './App.css';
 
 const draw = (ctx: CanvasRenderingContext2D) => {
   const image = new Image();
   const state = store.getState();
 
-  image.crossOrigin = "anonymous";
+  image.crossOrigin = 'anonymous';
   ctx.imageSmoothingEnabled = true;
 
   if (state) {
@@ -35,22 +35,22 @@ const draw = (ctx: CanvasRenderingContext2D) => {
         ctx.canvas.height
       );
 
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
 
       if (state.meme.boxes) {
         state.meme.boxes.forEach((box: any, i: number) => {
-          ctx.fillStyle = state.meme.color || "#FFFFFF";
-          ctx.strokeStyle = state.meme.stroke || "#000000";
+          ctx.fillStyle = state.meme.color || '#FFFFFF';
+          ctx.strokeStyle = state.meme.stroke || '#000000';
           ctx.font = state.meme.font
             ? `${state.meme.font.size}px ${state.meme.font.family}`
-            : "48px Anton";
+            : '48px Anton';
           if (box.size) {
-            ctx.font = ctx.font.replace(ctx.font.split("px")[0], box.size);
+            ctx.font = ctx.font.replace(ctx.font.split('px')[0], box.size);
           }
-          let lines = state[`text${i}`].split("\n");
+          let lines = state[`text${i}`].split('\n');
           if (lines.length > 1) {
-            let fontSize = ctx.font.split("px")[0];
+            let fontSize = ctx.font.split('px')[0];
             ctx.font = ctx.font.replace(
               fontSize,
               `${Math.max(
@@ -114,7 +114,8 @@ function App() {
         <div className="drawer-content flex flex-col items-center justify-center">
           <label
             htmlFor="drawer"
-            className="btn btn-circle btn-ghost drawer-button text-xl lg:hidden absolute top-2 left-2 z-40">
+            className="btn btn-circle btn-ghost drawer-button text-xl lg:hidden absolute top-2 left-2 z-40"
+          >
             &#9778;
           </label>
           <List list={memeList.data.memes} onChange={onChange} />
@@ -123,10 +124,11 @@ function App() {
         </div>
         <div className="drawer-side">
           <label htmlFor="drawer" className="drawer-overlay"></label>
-          <div className="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content relative">
+          <div className="menu p-4 overflow-y-auto w-80 bg-neutral-focus text-base-content relative">
             <label
               htmlFor="drawer"
-              className="btn btn-circle btn-ghost drawer-button lg:hidden text-lg absolute top-2 right-2 z-40">
+              className="btn btn-circle btn-ghost drawer-button lg:hidden text-lg absolute top-2 right-2 z-40"
+            >
               &times;
             </label>
             <TextBoxes boxes={state.meme?.boxes} />

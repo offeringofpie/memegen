@@ -1,0 +1,9 @@
+[dev]
+  functions = "./netlify/functions"
+  functionsPort = 4000
+
+[functions]
+  directory = "./netlify/functions"
+
+[build]
+  functions = "./netlify/dist"
