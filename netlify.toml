@@ -4,6 +4,10 @@
 
 [functions]
   directory = "./netlify/functions"
+  included_files = ["fonts/**"]
 
 [build]
   functions = "./netlify/dist"
+
+[[redirects]]
+/generate /.netlify/functions/meme 200
