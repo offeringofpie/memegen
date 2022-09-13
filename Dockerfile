@@ -1,29 +1,39 @@
-FROM node:alpine
+FROM arm64v8/amazonlinux:latest
 
-RUN mkdir -p /app
-WORKDIR /app
+ARG OUT=/root/layers
+ARG NODE_VERSION=18
 
-COPY . /app
+# set up container
+RUN yum -y update \
+  && yum -y groupinstall "Development Tools" \
+  && curl --silent --location https://rpm.nodesource.com/setup_${NODE_VERSION}.x | bash - \
+  && yum install -y \
+  nodejs \
+  python37 \
+  which \
+  binutils \
+  sed \
+  gcc-c++ \
+  cairo-devel \
+  libjpeg-turbo-devel \
+  pango-devel \
+  giflib-devel
 
-RUN apk add --no-cache \
-  build-base \
-  g++ \
-  cairo-dev \
-  jpeg-dev \
-  pango-dev \
-  giflib-dev
+# will be created and become working dir
+WORKDIR $OUT/nodejs
 
-RUN apk add --update  --repository http://dl-3.alpinelinux.org/alpine/edge/testing libmount ttf-dejavu ttf-droid ttf-freefont ttf-liberation fontconfig
+RUN npm install --build-from-source \
+  canvas
 
-RUN npm i -g netlify-cli
+# will be created and become working dir
+WORKDIR $OUT/lib
 
-RUN npm install
+# gather missing libraries
+RUN curl https://raw.githubusercontent.com/ncopa/lddtree/v1.26/lddtree.sh -o $OUT/lddtree.sh \
+  && chmod +x $OUT/lddtree.sh \
+  && cp $($OUT/lddtree.sh -l $OUT/nodejs/node_modules/canvas/build/Release/canvas.node | grep '^\/lib' | sed -r -e '/canvas.node$/d') .
 
-# RUN cp /lib/libblkid.so.1 /app/node_modules/canvas/build/Release/ && cp /lib/libmount.so.1 /app/node_modules/canvas/build/Release/ && cp /lib/libuuid.so.1 /app/node_modules/canvas/build/Release/
+WORKDIR $OUT
 
-# COPY . /usr/src/bot
-
-EXPOSE 4000
-
-# CMD netlify functions:serve
-CMD netlify functions:build --src netlify/functions
+RUN zip -r -9 node${NODE_VERSION}_canvas_layer.zip nodejs \
+  && zip -r -9 node${NODE_VERSION}_canvas_lib64_layer.zip lib

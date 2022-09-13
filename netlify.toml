@@ -4,7 +4,7 @@
 
 [functions]
   directory = "./netlify/functions"
-  included_files = ["fonts/**"]
+  included_files = ["fonts/**", "public/**"]
 
 [build]
   functions = "./netlify/dist"
