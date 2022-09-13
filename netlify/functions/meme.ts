@@ -106,17 +106,17 @@ const handler: Handler = async (
 
     if (hasText) {
       try {
-        if (meme.font) {
-          if (meme.font.family.includes("Arial")) {
-            await loadFont("public/fonts/arial.ttf", "Arial");
-          } else if (meme.font.family.includes("Comic")) {
-            await loadFont("public/fonts/comic.ttf", "Comic Sans");
-          } else {
-            await loadFont("public/fonts/impact.ttf", "Impact");
-          }
-        } else {
-          await loadFont("public/fonts/impact.ttf", "Impact");
-        }
+        // if (meme.font) {
+        //   if (meme.font.family.includes("Arial")) {
+        //     await loadFont("public/fonts/arial.ttf", "Arial");
+        //   } else if (meme.font.family.includes("Comic")) {
+        //     await loadFont("public/fonts/comic.ttf", "Comic Sans");
+        //   } else {
+        //     await loadFont("public/fonts/impact.ttf", "Impact");
+        //   }
+        // } else {
+        //   await loadFont("public/fonts/impact.ttf", "Impact");
+        // }
 
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";

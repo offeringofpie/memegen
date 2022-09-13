@@ -8,7 +8,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "netlify": "netlify functions:serve",
-    "netlify:build": "netlify functions:build --src netlify/functions"
+    "netlify:build": "rm netlify/functions/meme.zip && netlify functions:build --src netlify/functions"
   },
   "dependencies": {
     "@netlify/functions": "^1.2.0",
