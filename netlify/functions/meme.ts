@@ -108,14 +108,14 @@ const handler: Handler = async (
       try {
         if (meme.font) {
           if (meme.font.family.includes('Arial')) {
-            await loadFont('/fonts/arial.ttf', 'Arial');
+            await loadFont('./public/fonts/arial.ttf', 'Arial');
           } else if (meme.font.family.includes('Comic')) {
-            await loadFont('/fonts/comic.ttf', 'Comic Sans');
+            await loadFont('./public/fonts/comic.ttf', 'Comic Sans');
           } else {
-            await loadFont('/fonts/impact.ttf', 'Impact');
+            await loadFont('./public/fonts/impact.ttf', 'Impact');
           }
         } else {
-          await loadFont('/fonts/impact.ttf', 'Impact');
+          await loadFont('./public/fonts/impact.ttf', 'Impact');
         }
 
         ctx.textAlign = 'center';
@@ -131,13 +131,10 @@ const handler: Handler = async (
             let text = texts[i];
 
             if (typeof box.size !== 'undefined') {
-              console.log(meme);
               ctx.font = `${box.size}px ${meme.font.family}`;
             } else {
               ctx.font = `${meme.font.size}px ${meme.font.family}`;
             }
-
-            console.log('sup');
 
             if (text) {
               let lines = text.split('\n');
