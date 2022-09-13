@@ -1,7 +1,0 @@
-[dev]
-  functions = "./netlify/functions"
-  functionsPort = 4000
-
-[functions]
-  directory = "./netlify/functions"
-  included_files = ["public/fonts/**"]
