@@ -108,14 +108,14 @@ const handler: Handler = async (
       try {
         if (meme.font) {
           if (meme.font.family.includes('Arial')) {
-            await loadFont('./fonts/arial.ttf', 'Arial');
+            await loadFont('/fonts/arial.ttf', 'Arial');
           } else if (meme.font.family.includes('Comic')) {
-            await loadFont('./fonts/comic.ttf', 'Comic Sans');
+            await loadFont('/fonts/comic.ttf', 'Comic Sans');
           } else {
-            await loadFont('./fonts/impact.ttf', 'Impact');
+            await loadFont('/fonts/impact.ttf', 'Impact');
           }
         } else {
-          await loadFont('./fonts/impact.ttf', 'Impact');
+          await loadFont('/fonts/impact.ttf', 'Impact');
         }
 
         ctx.textAlign = 'center';
