@@ -1,15 +1,15 @@
-import { Handler, HandlerContext, HandlerEvent } from '@netlify/functions';
-import fetch from 'isomorphic-fetch';
-import PImage from 'pureimage';
-import Fuse from 'fuse.js';
-import { Bitmap } from 'pureimage/types/bitmap';
-import { PassThrough } from 'stream';
+import { Handler, HandlerContext, HandlerEvent } from "@netlify/functions";
+import fetch from "isomorphic-fetch";
+import PImage from "pureimage";
+import Fuse from "fuse.js";
+import { Bitmap } from "pureimage/types/bitmap";
+import { PassThrough } from "stream";
 
-const FONT_PATH = 'fonts/impact.ttf';
-const FONT_NAME = 'Source Sans Pro';
-const FONT_SIZE = '48pt';
+const FONT_PATH = "fonts/impact.ttf";
+const FONT_NAME = "Source Sans Pro";
+const FONT_SIZE = "48pt";
 
-const OUTPUT_FILE_TYPE: 'jpeg' | 'png' = 'jpeg';
+const OUTPUT_FILE_TYPE: "jpeg" | "png" = "jpeg";
 
 /**
  * Function to output Bitmap to a buffer using stream.PassThrough. The default
@@ -18,22 +18,22 @@ const OUTPUT_FILE_TYPE: 'jpeg' | 'png' = 'jpeg';
  */
 const imageToBuffer = (
   image: Bitmap,
-  type: string = 'jpeg'
+  type: string = "jpeg"
 ): Promise<Buffer> => {
   return new Promise((resolve) => {
     const stream = new PassThrough();
     const imageData: Uint8Array[] = [];
 
-    stream.on('data', (chunk) => {
+    stream.on("data", (chunk) => {
       imageData.push(chunk);
     });
 
-    stream.on('end', () => {
+    stream.on("end", () => {
       resolve(Buffer.concat(imageData));
     });
 
     // @ts-ignore No overlap error from TypeScript
-    if (type === 'png') {
+    if (type === "png") {
       PImage.encodePNGToStream(image, stream);
       return;
     }
@@ -48,7 +48,7 @@ const loadFont = (fontPath: string, fontName: string): Promise<void> => {
 
     // 3rd, 4th and 5th parameters are required by TypeScript...
     try {
-      font = PImage.registerFont(fontPath, fontName, 400, 'normal', 'normal');
+      font = PImage.registerFont(fontPath, fontName, 400, "normal", "normal");
       font.load(() => {
         resolve();
       });
@@ -60,7 +60,7 @@ const loadFont = (fontPath: string, fontName: string): Promise<void> => {
 
 const getMemeList = async () => {
   try {
-    const response = await fetch('https://memes.jlopes.eu/memes.json')
+    const response = await fetch("https://memes.jlopes.eu/memes.json")
       .then((res) => res.json())
       .then((data) => {
         return data.data.memes;
@@ -84,63 +84,63 @@ const handler: Handler = async (
     minMatchCharLength: 3,
     threshold: 0.2,
     // Search in `author` and in `tags` array
-    keys: ['name'],
+    keys: ["name"],
   }).search(name);
 
   if (result.length) {
     const meme = result[0].item as any;
 
     const image = PImage.make(meme.width, meme.height, {});
-    const ctx = image.getContext('2d');
-    const fileType = meme.url.split('.').pop();
+    const ctx = image.getContext("2d");
+    const fileType = meme.url.split(".").pop();
     const logo = await fetch(meme.url)
       .then((res) => res.body)
       .then((stream) => {
-        return fileType === 'png'
+        return fileType === "png"
           ? PImage.decodePNGFromStream(stream)
           : PImage.decodeJPEGFromStream(stream);
       });
     ctx.drawImage(logo, 0, 0, meme.width, meme.height);
 
-    const hasText = text0 !== undefined && typeof text0 === 'string';
+    const hasText = text0 !== undefined && typeof text0 === "string";
 
     if (hasText) {
       try {
         if (meme.font) {
-          if (meme.font.family.includes('Arial')) {
-            await loadFont('./fonts/arial.ttf', 'Arial');
-          } else if (meme.font.family.includes('Comic')) {
-            await loadFont('./fonts/comic.ttf', 'Comic Sans');
+          if (meme.font.family.includes("Arial")) {
+            await loadFont("public/fonts/arial.ttf", "Arial");
+          } else if (meme.font.family.includes("Comic")) {
+            await loadFont("public/fonts/comic.ttf", "Comic Sans");
           } else {
-            await loadFont('./fonts/impact.ttf', 'Impact');
+            await loadFont("public/fonts/impact.ttf", "Impact");
           }
         } else {
-          await loadFont('./fonts/impact.ttf', 'Impact');
+          await loadFont("public/fonts/impact.ttf", "Impact");
         }
 
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.font = '48px Impact';
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.font = "48px Impact";
 
         if (meme.boxes) {
           let texts = [text0, text1, text2, text3, text4];
           meme.boxes.forEach((box: any, i: number) => {
-            ctx.fillStyle = meme.color || '#FFFFFF';
-            ctx.strokeStyle = meme.stroke || '#000000';
+            ctx.fillStyle = meme.color || "#FFFFFF";
+            ctx.strokeStyle = meme.stroke || "#000000";
 
             let text = texts[i];
 
-            if (typeof box.size !== 'undefined') {
+            if (typeof box.size !== "undefined") {
               ctx.font = `${box.size}px ${meme.font.family}`;
             } else {
               ctx.font = `${meme.font.size}px ${meme.font.family}`;
             }
 
             if (text) {
-              let lines = text.split('\n');
+              let lines = text.split("\n");
 
               if (lines.length > 1) {
-                let fontSize = ctx.font.split('px')[0];
+                let fontSize = ctx.font.split("px")[0];
                 ctx.font = ctx.font.replace(
                   fontSize,
                   `${Math.max(
@@ -182,18 +182,18 @@ const handler: Handler = async (
     return {
       statusCode: 200,
       headers: {
-        'Content-Type':
-          OUTPUT_FILE_TYPE === 'jpeg' ? 'image/jpeg' : 'image/png',
+        "Content-Type":
+          OUTPUT_FILE_TYPE === "jpeg" ? "image/jpeg" : "image/png",
         // 'Cache-Control': 'public, max-age=604800, immutable', // 7 days
       },
-      body: buffer.toString('base64'),
+      body: buffer.toString("base64"),
       isBase64Encoded: true,
     };
   }
 
   return {
     statusCode: 200,
-    body: 'Hello world!',
+    body: "Hello world!",
   };
 };
 

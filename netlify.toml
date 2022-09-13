@@ -4,4 +4,4 @@
 
 [functions]
   directory = "./netlify/functions"
-  included_files = ["./fonts/**"]
+  included_files = ["public/fonts/**"]
