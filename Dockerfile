@@ -19,7 +19,7 @@ RUN npm i -g netlify-cli
 
 RUN npm install
 
-RUN cp /lib/libblkid.so.1 /app/node_modules/canvas/build/Release/ && cp /lib/libmount.so.1 /app/node_modules/canvas/build/Release/ && cp /lib/libuuid.so.1 /app/node_modules/canvas/build/Release/
+# RUN cp /lib/libblkid.so.1 /app/node_modules/canvas/build/Release/ && cp /lib/libmount.so.1 /app/node_modules/canvas/build/Release/ && cp /lib/libuuid.so.1 /app/node_modules/canvas/build/Release/
 
 # COPY . /usr/src/bot
 
