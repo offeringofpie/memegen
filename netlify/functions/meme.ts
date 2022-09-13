@@ -1,12 +1,66 @@
-import { Handler } from "@netlify/functions";
-import fetch from "isomorphic-fetch";
-import Fuse from "fuse.js";
-import { createCanvas, loadImage, registerFont } from "canvas";
-registerFont("./fonts/impact.ttf", { family: "Impact" });
+import { Handler, HandlerContext, HandlerEvent } from '@netlify/functions';
+import fetch from 'isomorphic-fetch';
+import PImage from 'pureimage';
+import Fuse from 'fuse.js';
+import { Bitmap } from 'pureimage/types/bitmap';
+import { PassThrough } from 'stream';
+
+const FONT_PATH = 'fonts/impact.ttf';
+const FONT_NAME = 'Source Sans Pro';
+const FONT_SIZE = '48pt';
+
+const OUTPUT_FILE_TYPE: 'jpeg' | 'png' = 'jpeg';
+
+/**
+ * Function to output Bitmap to a buffer using stream.PassThrough. The default
+ * examples of pureimage use writeFile to persist images on disk. In a serverless
+ * function we want to keep it in memory.
+ */
+const imageToBuffer = (
+  image: Bitmap,
+  type: string = 'jpeg'
+): Promise<Buffer> => {
+  return new Promise((resolve) => {
+    const stream = new PassThrough();
+    const imageData: Uint8Array[] = [];
+
+    stream.on('data', (chunk) => {
+      imageData.push(chunk);
+    });
+
+    stream.on('end', () => {
+      resolve(Buffer.concat(imageData));
+    });
+
+    // @ts-ignore No overlap error from TypeScript
+    if (type === 'png') {
+      PImage.encodePNGToStream(image, stream);
+      return;
+    }
+
+    PImage.encodeJPEGToStream(image, stream);
+  });
+};
+
+const loadFont = (fontPath: string, fontName: string): Promise<void> => {
+  return new Promise((resolve, reject) => {
+    let font;
+
+    // 3rd, 4th and 5th parameters are required by TypeScript...
+    try {
+      font = PImage.registerFont(fontPath, fontName, 400, 'normal', 'normal');
+      font.load(() => {
+        resolve();
+      });
+    } catch (err) {
+      reject(err);
+    }
+  });
+};
 
 const getMemeList = async () => {
   try {
-    const response = await fetch("https://memes.jlopes.eu/memes.json")
+    const response = await fetch('https://memes.jlopes.eu/memes.json')
       .then((res) => res.json())
       .then((data) => {
         return data.data.memes;
@@ -17,10 +71,12 @@ const getMemeList = async () => {
   }
 };
 
-const handler: Handler = async (event, context) => {
+const handler: Handler = async (
+  { queryStringParameters }: HandlerEvent,
+  context: HandlerContext
+) => {
   const { name, text0, text1, text2, text3, text4 } =
-    event.queryStringParameters as any;
-
+    queryStringParameters as any;
   const memeList = await getMemeList();
 
   const result = new Fuse(memeList, {
@@ -28,125 +84,120 @@ const handler: Handler = async (event, context) => {
     minMatchCharLength: 3,
     threshold: 0.2,
     // Search in `author` and in `tags` array
-    keys: ["name"],
+    keys: ['name'],
   }).search(name);
 
   if (result.length) {
-    const meme = result[0].item;
-    const canvas = createCanvas(meme.width, meme.height);
-    const ctx = canvas.getContext("2d");
+    const meme = result[0].item as any;
 
-    await loadImage(meme.url).then((image) => {
-      ctx.drawImage(image, 0, 0, meme.width, meme.height);
+    const image = PImage.make(meme.width, meme.height, {});
+    const ctx = image.getContext('2d');
+    const fileType = meme.url.split('.').pop();
+    const logo = await fetch(meme.url)
+      .then((res) => res.body)
+      .then((stream) => {
+        return fileType === 'png'
+          ? PImage.decodePNGFromStream(stream)
+          : PImage.decodeJPEGFromStream(stream);
+      });
+    ctx.drawImage(logo, 0, 0, meme.width, meme.height);
 
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
+    const hasText = text0 !== undefined && typeof text0 === 'string';
 
-      if (meme.boxes) {
-        meme.boxes.forEach((box: any, i: number) => {
-          ctx.fillStyle = meme.color || "#FFFFFF";
-          ctx.strokeStyle = meme.stroke || "#000000";
-          ctx.font = meme.font
-            ? `${meme.font.size}px ${meme.font.family}`
-            : "48px Impact";
-          if (box.size) {
-            ctx.font = ctx.font.replace(ctx.font.split("px")[0], box.size);
+    if (hasText) {
+      try {
+        if (meme.font) {
+          if (meme.font.family.includes('Arial')) {
+            await loadFont('./fonts/arial.ttf', 'Arial');
+          } else if (meme.font.family.includes('Comic')) {
+            await loadFont('./fonts/comic.ttf', 'Comic Sans');
+          } else {
+            await loadFont('./fonts/impact.ttf', 'Impact');
           }
+        } else {
+          await loadFont('./fonts/impact.ttf', 'Impact');
+        }
 
-          let text;
-          switch (i) {
-            case 1:
-              text = text1;
-              break;
-            case 2:
-              text = text2;
-              break;
-            case 3:
-              text = text3;
-              break;
-            case 4:
-              text = text4;
-              break;
-            default:
-              text = text0;
-              break;
-          }
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = '48px Impact';
 
-          if (text) {
-            let lines = text.split("\n");
+        if (meme.boxes) {
+          let texts = [text0, text1, text2, text3, text4];
+          meme.boxes.forEach((box: any, i: number) => {
+            ctx.fillStyle = meme.color || '#FFFFFF';
+            ctx.strokeStyle = meme.stroke || '#000000';
 
-            if (lines.length > 1) {
-              let fontSize = ctx.font.split("px")[0];
-              ctx.font = ctx.font.replace(
-                fontSize,
-                `${Math.max(
-                  parseInt(fontSize) / 2,
-                  (parseInt(fontSize) * 2) / lines.length
-                )}`
-              );
+            let text = texts[i];
+
+            if (typeof box.size !== 'undefined') {
+              console.log(meme);
+              ctx.font = `${box.size}px ${meme.font.family}`;
+            } else {
+              ctx.font = `${meme.font.size}px ${meme.font.family}`;
             }
-            lines.forEach((line: string, i: number) => {
-              let text = meme.uppercase ? line.toUpperCase() : line;
-              const metrics = ctx.measureText(text);
-              const fontHeight =
-                metrics.actualBoundingBoxAscent +
-                metrics.actualBoundingBoxDescent;
-              ctx.fillStyle = box.color || ctx.fillStyle;
-              ctx.strokeStyle = box.stroke || ctx.strokeStyle;
-              ctx.save();
-              ctx.translate(
-                box.pos[0],
-                box.pos[1] + (10 + fontHeight) * i - fontHeight / 2
-              );
-              if (box.angle) {
-                ctx.rotate((box.angle * Math.PI) / 180);
-              }
 
-              ctx.shadowColor = ctx.strokeStyle as string;
-              ctx.shadowBlur = 5;
-              ctx.lineWidth = 2;
-              ctx.strokeText(text, 0, 0);
-              ctx.shadowBlur = 0;
-              ctx.fillText(text, 0, 0);
-              ctx.restore();
-            });
-          }
-        });
+            console.log('sup');
+
+            if (text) {
+              let lines = text.split('\n');
+
+              if (lines.length > 1) {
+                let fontSize = ctx.font.split('px')[0];
+                ctx.font = ctx.font.replace(
+                  fontSize,
+                  `${Math.max(
+                    parseInt(fontSize) / 2,
+                    (parseInt(fontSize) * 2) / lines.length
+                  )}`
+                );
+              }
+              lines.forEach((line: string, i: number) => {
+                let text = meme.uppercase ? line.toUpperCase() : line;
+                const metrics = ctx.measureText(text);
+                const fontHeight =
+                  metrics.emHeightAscent + metrics.emHeightDescent;
+                ctx.fillStyle = box.color || ctx.fillStyle;
+                ctx.strokeStyle = box.stroke || ctx.strokeStyle;
+                ctx.save();
+                ctx.translate(
+                  box.pos[0],
+                  box.pos[1] + (10 + fontHeight) * i - fontHeight / 2
+                );
+                if (box.angle) {
+                  ctx.rotate((box.angle * Math.PI) / 180);
+                }
+                ctx.lineWidth = 2;
+                ctx.strokeText(text, 0, 0);
+                ctx.fillText(text, 0, 0);
+                ctx.restore();
+              });
+            }
+          });
+        }
+      } catch (err) {
+        //
       }
-    });
+    }
+
+    const buffer = await imageToBuffer(image);
 
     return {
       statusCode: 200,
-      body: `<img src="${canvas.toDataURL()}" />`,
+      headers: {
+        'Content-Type':
+          OUTPUT_FILE_TYPE === 'jpeg' ? 'image/jpeg' : 'image/png',
+        // 'Cache-Control': 'public, max-age=604800, immutable', // 7 days
+      },
+      body: buffer.toString('base64'),
+      isBase64Encoded: true,
     };
   }
 
-  // let image;
-  // try {
-  //   const result = await fetch(imgUrl, {
-  //     headers: {
-  //       Authorization: `Bearer ${process.env.AUTH_TOKEN}`,
-  //     },
-  //   });
-  //   image = await result.buffer();
-  // } catch (error) {
-  //   console.log("error", error);
-  //   return {
-  //     statusCode: 500,
-  //     body: JSON.stringify({
-  //       error: error.message,
-  //     }),
-  //   };
-  // }
-
-  // return {
-  //   statusCode: 200,
-  //   headers: {
-  //     "Content-type": "image/jpeg",
-  //   },
-  //   body: image.toString("base64"),
-  //   isBase64Encoded: true,
-  // };
+  return {
+    statusCode: 200,
+    body: 'Hello world!',
+  };
 };
 
 export { handler };
