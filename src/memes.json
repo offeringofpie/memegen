@@ -10,8 +10,39 @@
         "height": 1200,
         "box_count": 2,
         "uppercase": true,
-        "font": { "size": 80, "family": "Anton" },
+        "font": { "size": 80, "family": "Impact" },
         "boxes": [{ "pos": [900, 350] }, { "pos": [900, 950] }]
+      },
+      {
+        "id": "1819136421",
+        "name": "Gandalf No Memory of This Place",
+        "url": "https://cdn.jlopes.eu/memes/1ikbzq.jpg",
+        "width": 500,
+        "height": 607,
+        "box_count": 3,
+        "uppercase": true,
+        "font": { "size": 30, "family": "Impact" },
+        "boxes": [
+          { "pos": [250, 190], "size": 30 },
+          { "pos": [250, 390], "size": 30 },
+          { "pos": [250, 440] }
+        ]
+      },
+      {
+        "id": "1819136422",
+        "name": "Aunty Donna Broden Bastard",
+        "url": "https://cdn.jlopes.eu/memes/8skcehkakzi71.jpg",
+        "width": 1010,
+        "height": 1794,
+        "box_count": 3,
+        "color": "#000000",
+        "font": { "size": 50, "family": "Arial" },
+        "boxes": [
+          { "pos": [250, 200] },
+          { "pos": [250, 650] },
+          { "pos": [250, 1100] },
+          { "pos": [250, 1600] }
+        ]
       },
       {
         "id": "87743020",
