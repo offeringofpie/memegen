@@ -1,52 +1,61 @@
-import React from "react";
-import store from "../../store";
+import { useState } from 'react';
+import store from '../../store';
 
-const Buttons = (props: any) => {
-  const state = store.getState();
-  const onDownload = (event: any) => {
-    if (state.canvas) {
-      const url = state.canvas.toDataURL("image/jpeg", 0.7);
-      const link = document.createElement("a");
-      link.download = state.meme.name
-        .replace(/\s+/g, "-")
-        .replace(/[^a-zA-Z0-9 -]/g, "")
-        .toLowerCase();
+const Buttons = () => {
+  const [copied, setCopied] = useState(false);
+
+  const onDownload = () => {
+    const state = store.getState();
+    if (state.canvas && state.meme) {
+      const url = state.canvas.toDataURL('image/jpeg', 0.9);
+      const link = document.createElement('a');
+      link.download =
+        state.meme.name
+          .replace(/\s+/g, '-')
+          .replace(/[^a-zA-Z0-9 -]/g, '')
+          .toLowerCase() + '-meme.jpg';
       link.href = url;
       link.click();
     }
   };
-  const onUpload = (event: any) => {
-    if (state.canvas) {
-      const url = state.canvas.toDataURL("image/jpeg", 0.7);
-      const myHeaders = new Headers();
-      myHeaders.append(
-        "Authorization",
-        `Client-ID ${import.meta.env.VITE_CLIENT_ID}`
-      );
 
-      const formdata = new FormData();
-      formdata.append("image", url);
+  const onCopy = () => {
+    const state = store.getState();
+    if (!state.canvas) return;
 
-      const requestOptions: any = {
-        method: "POST",
-        headers: myHeaders,
-        body: formdata,
-        redirect: "follow",
-      };
+    state.canvas.toBlob(async (blob) => {
+      if (blob) {
+        try {
+          const item = new ClipboardItem({ 'image/png': blob });
+          await navigator.clipboard.write([item]);
 
-      fetch("https://api.imgur.com/3/image", requestOptions)
-        .then((response) => response.text())
-        .then((result) => console.log(result))
-        .catch((error) => console.log("error", error));
-    }
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000);
+        } catch (error) {}
+      }
+    }, 'image/png');
   };
+
   return (
-    <div className="btn-group">
-      <button onClick={onDownload} className="btn btn-outline btn-primary">
+    <div className="flex flex-wrap justify-center gap-6 mt-10">
+      <button
+        onClick={onDownload}
+        className="px-8 py-3 border rounded-xl font-bold uppercase tracking-widest text-sm bg-cyan text-slate-900 hover:bg-transparent hover:border-cyan hover:text-cyan transition-all cursor-pointer"
+      >
         Download
       </button>
-      <button onClick={onUpload} className="btn btn-outline btn-secondary">
-        Upload to Imgur
+
+      <button
+        onClick={onCopy}
+        className={`px-8 py-3 rounded-xl font-bold uppercase tracking-widest text-sm transition-all cursor-pointer border
+          ${
+            copied
+              ? 'bg-coral text-slate-900 border-coral'
+              : 'bg-surface-inset border-border text-border hover:text-coral hover:border-coral active:translate-y-px'
+          }
+        `}
+      >
+        {copied ? 'Copied!' : 'Copy Image'}
       </button>
     </div>
   );
