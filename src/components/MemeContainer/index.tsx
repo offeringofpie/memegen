@@ -131,6 +131,8 @@ const MemeContainer = () => {
     <canvas
       className={`max-w-full lg:max-w-2xl my-4 ${style.canvas}`}
       ref={canvasRef}
+      role="img"
+      aria-label={`Meme preview image'}`}
     />
   );
 };
