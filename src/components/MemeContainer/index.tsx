@@ -18,7 +18,7 @@ const MemeContainer = () => {
 
     const image = new Image();
     image.crossOrigin = 'anonymous';
-    let currMemeId = '';
+    let currMemeId: string | number = '';
     let animationFrameId: number;
 
     const render = () => {
