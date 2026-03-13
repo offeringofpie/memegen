@@ -1,5 +1,5 @@
 import { useSyncExternalStore } from 'react';
-import store from '../../store';
+import store from '../store';
 
 const TextBoxes = ({ boxes }: { boxes?: any[] }) => {
   const state = useSyncExternalStore(store.subscribe, store.getState);
@@ -12,11 +12,15 @@ const TextBoxes = ({ boxes }: { boxes?: any[] }) => {
 
   return (
     <div className="flex flex-col gap-4">
+      <p id="live-preview-desc" className="sr-only">
+        Typing in this field will instantly update the meme preview image above.
+      </p>
+
       {boxes.map((_, i) => (
         <div key={i} className="flex flex-col">
           <label
             htmlFor={`text${i}`}
-            className="text-xs font-medium text-slate-500 uppercase tracking-wider mb-2"
+            className="text-xs font-medium text-coral uppercase tracking-wider mb-2 cursor-pointer"
           >
             Text Block {i + 1}
           </label>
@@ -25,8 +29,9 @@ const TextBoxes = ({ boxes }: { boxes?: any[] }) => {
             cols={20}
             rows={3}
             value={state[`text${i}`] || ''}
-            placeholder={`Type here...`}
-            className="w-full bg-surface-inset border-slate-800 rounded-lg px-4 py-3 text-border placeholder-slate-700 focus:outline-none focus:ring-2 focus:ring-coral focus:text-coral focus:border-transparent resize-none transition-all shadow-inner"
+            placeholder="Type here..."
+            aria-describedby="live-preview-desc"
+            className="w-full bg-surface-inset border-slate-800 rounded-lg px-4 py-3 text-cyan placeholder-border focus:outline-none focus:ring-2 focus:ring-coral focus:text-coral focus:border-transparent resize-none transition-all shadow-inner"
             onChange={onChange}
           ></textarea>
         </div>

@@ -7,25 +7,37 @@ import List from './components/List';
 import TextBoxes from './components/TextBoxes';
 import Buttons from './components/Buttons';
 
-import './App.css';
-
 function App() {
   const state = useSyncExternalStore(store.subscribe, store.getState);
+  const boxCount = state.meme?.box_count || 0;
+  const boxes = Array.from({ length: boxCount });
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row font-sans text-slate-300">
-      <main className="flex-1 flex flex-col items-center justify-center p-6 lg:p-10 relative">
-        <List list={memeList.data.memes} />
+    <div className="min-h-screen bg-bg flex flex-col lg:flex-row font-sans text-cyan">
+      <main className="flex-1 flex flex-col items-center justify-center p-4 sm:p-8 lg:p-12 overflow-hidden">
+        <h1 className="sr-only">Meme Generator</h1>
         <MemeContainer />
-        <Buttons />
       </main>
 
-      <aside className="w-full lg:w-96 bg-surface p-6 lg:p-8 border-t lg:border-t-0 lg:border-l border-border z-10 flex flex-col relative overflow-hidden">
-        <h2 className="text-xs font-bold tracking-[0.25em] uppercase mb-6 text-cyan border-b border-border pb-4 drop-shadow-[0_0_5px_rgba(66,168,179,0.4)]">
-          Edit text
-        </h2>
+      <aside className="w-full lg:w-100 xl:w-120 bg-surface border-t lg:border-t-0 lg:border-l border-border p-6 sm:p-8 overflow-y-auto flex flex-col gap-8 shadow-2xl">
+        <header>
+          <h2 className="text-xl text-coral font-bold mb-1">MEME EDITOR</h2>
+          <p className="text-sm text-cyan">
+            Search for a meme and add your text!
+          </p>
+        </header>
 
-        <TextBoxes boxes={state.meme?.boxes} />
+        <section aria-label="Template selection">
+          <List list={memeList.data.memes} />
+        </section>
+
+        <section aria-label="Text inputs">
+          <TextBoxes boxes={boxes} />
+        </section>
+
+        <div className="mt-auto pt-4">
+          <Buttons />
+        </div>
       </aside>
     </div>
   );

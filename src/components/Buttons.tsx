@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import store from '../../store';
+import store from '../store';
 
 const Buttons = () => {
   const [copied, setCopied] = useState(false);
@@ -47,13 +47,14 @@ const Buttons = () => {
 
       <button
         onClick={onCopy}
+        aria-live="polite"
         className={`px-8 py-3 rounded-xl font-bold uppercase tracking-widest text-sm transition-all cursor-pointer border
-          ${
-            copied
-              ? 'bg-coral text-slate-900 border-coral'
-              : 'bg-surface-inset border-border text-border hover:text-coral hover:border-coral active:translate-y-px'
-          }
-        `}
+    ${
+      copied
+        ? 'bg-coral text-slate-900 border-coral'
+        : 'bg-surface-inset border-border text-border hover:text-coral hover:border-coral active:translate-y-px'
+    }
+  `}
       >
         {copied ? 'Copied!' : 'Copy Image'}
       </button>
