@@ -1,66 +1,70 @@
 import memeList from "./memes.json";
 
+export interface Meme {
+  id: string;
+  name: string;
+  url: string;
+  width: number;
+  height: number;
+  box_count: number;
+  uppercase?: boolean;
+  color?: string;
+  stroke?: string;
+  font?: { size: number; family: string };
+  boxes?: { pos: number[]; size?: number; angle?: number; color?: string; stroke?: string }[];
+}
+
+export interface AppState {
+  meme_id: string;
+  meme: Meme;
+  canvas?: HTMLCanvasElement;
+  [key: string]: any;
+}
+
 class Store {
-  state: any;
-  listeners: any[];
+  private state: AppState;
+  private listeners: Set<() => void> = new Set();
 
-  constructor(initialState: any) {
+  constructor(initialState: AppState) {
     this.state = initialState;
-
-    this.listeners = [];
   }
 
-  setState(state: any) {
-    for (let key in state) {
-      this.state[key] = state[key];
-      localStorage.setItem(key, state[key]);
+  setState = (newState: Partial<AppState>) => {
+    this.state = { ...this.state, ...newState };
+
+    for (const key in newState) {
+      if (key.startsWith("text") || key === "meme_id") {
+        localStorage.setItem(key, String(newState[key]));
+      }
     }
+    this.notify();
+  };
 
-    for (const listener of this.listeners) {
-      listener(this.state);
-    }
-  }
+  getState = () => this.state;
 
-  getState() {
-    return this.state;
-  }
+  subscribe = (listener: () => void) => {
+    this.listeners.add(listener);
+    return () => this.listeners.delete(listener);
+  };
 
-  addListener(listener: any) {
-    this.listeners.push(listener);
+  private notify() {
+    this.listeners.forEach((listener) => listener());
   }
 }
 
-const findMeme = (id: any) => {
-  return memeList.data.memes.find((meme) => {
-    return meme.id === id;
-  });
-};
+const findMeme = (id: string | null) => memeList.data.memes.find((m) => m.id === id);
 
-const store = new Store({});
+const defaultId = localStorage.getItem("meme_id") || memeList.data.memes[Math.floor(Math.random() * memeList.data.memes.length)].id;
+const defaultMeme = findMeme(defaultId) || memeList.data.memes[0];
 
-store.setState({
-  meme_id: localStorage.getItem("meme_id")
-    ? localStorage.getItem("meme_id")
-    : Math.floor(Math.random() * memeList.data.memes.length),
-  meme: findMeme(localStorage.getItem("meme_id"))
-    ? findMeme(localStorage.getItem("meme_id"))
-    : memeList.data.memes[
-        Math.floor(Math.random() * memeList.data.memes.length)
-      ],
-  text0: localStorage.getItem("text0")
-    ? localStorage.getItem("text0")
-    : "text 0",
-  text1: localStorage.getItem("text1")
-    ? localStorage.getItem("text1")
-    : "text 1",
-  text2: localStorage.getItem("text2")
-    ? localStorage.getItem("text2")
-    : "text 2",
-  text3: localStorage.getItem("text3")
-    ? localStorage.getItem("text3")
-    : "text 3",
-  text4: localStorage.getItem("text4")
-    ? localStorage.getItem("text4")
-    : "text 4",
+const store = new Store({
+  meme_id: defaultId,
+  meme: defaultMeme as Meme,
+  text0: localStorage.getItem("text0") || "text 0",
+  text1: localStorage.getItem("text1") || "text 1",
+  text2: localStorage.getItem("text2") || "text 2",
+  text3: localStorage.getItem("text3") || "text 3",
+  text4: localStorage.getItem("text4") || "text 4",
 });
+
 export default store;

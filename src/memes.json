@@ -6,6 +6,7 @@
         "id": "181913649",
         "name": "Drake Hotline Bling",
         "url": "https://cdn.jlopes.eu/memes/30b1gx.jpg",
+        "color": "#000000",
         "width": 1200,
         "height": 1200,
         "box_count": 2,
@@ -27,6 +28,63 @@
           { "pos": [250, 390], "size": 30 },
           { "pos": [250, 440] }
         ]
+      },
+      {
+        "id": 249257686,
+        "name": "Bugs Bunny Communist",
+        "url": "https://cdn.jlopes.eu/memes/249257686.jpg",
+        "width": 636,
+        "height": 392,
+        "font": { "size": 40, "family": "Arial" },
+        "box_count": 1,
+        "boxes": [{ "pos": [450, 370] }]
+      },
+      {
+        "id": 179116198,
+        "name": "Bugs Bunny No",
+        "url": "https://cdn.jlopes.eu/memes/179116198.jpg",
+        "width": 535,
+        "height": 500,
+        "font": { "size": 70, "family": "Impact" },
+        "uppercase": true,
+        "box_count": 1,
+        "boxes": [{ "pos": [100, 480] }]
+      },
+      {
+        "id": 342785297,
+        "name": "Gus Fring we are not the same",
+        "url": "https://cdn.jlopes.eu/memes/342785297.jpg",
+        "width": 500,
+        "height": 714,
+        "font": { "size": 48, "family": "Impact" },
+        "uppercase": true,
+        "box_count": 3,
+        "boxes": [
+          { "pos": [250, 60] },
+          { "pos": [250, 357] },
+          { "pos": [250, 680] }
+        ]
+      },
+      {
+        "id": 197671929,
+        "name": "Kombucha Girl",
+        "url": "https://cdn.jlopes.eu/memes/197671929.jpg",
+        "width": 540,
+        "height": 462,
+        "font": { "size": 40, "family": "Impact" },
+        "uppercase": true,
+        "box_count": 2,
+        "boxes": [{ "pos": [130, 55] }, { "pos": [405, 55] }]
+      },
+      {
+        "id": 234202281,
+        "name": "AJ Styles & Undertaker",
+        "url": "https://cdn.jlopes.eu/memes/234202281.jpg",
+        "width": 639,
+        "height": 500,
+        "font": { "size": 40, "family": "Arial" },
+        "box_count": 2,
+        "boxes": [{ "pos": [160, 450] }, { "pos": [520, 80] }]
       },
       {
         "id": "1819136422",
