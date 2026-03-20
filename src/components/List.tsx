@@ -5,6 +5,24 @@ interface ListProps {
   list: Meme[];
 }
 
+const fuzzySearch = (needle: string, haystack: string) => {
+  const hlen = haystack.length;
+  const nlen = needle.length;
+  if (nlen > hlen) return false;
+  if (nlen === 0) return true;
+
+  const needleLower = needle.toLowerCase();
+  const haystackLower = haystack.toLowerCase();
+  let j = 0;
+
+  for (let i = 0; i < nlen; i++) {
+    j = haystackLower.indexOf(needleLower[i], j);
+    if (j === -1) return false;
+    j++;
+  }
+  return true;
+};
+
 const List = ({ list }: ListProps) => {
   const state = useSyncExternalStore(store.subscribe, store.getState);
 
@@ -15,8 +33,9 @@ const List = ({ list }: ListProps) => {
   const listRef = useRef<HTMLUListElement>(null);
 
   const sortedList = [...list].sort((a, b) => a.name.localeCompare(b.name));
+
   const filteredList = sortedList.filter((meme) =>
-    meme.name.toLowerCase().includes(searchTerm.toLowerCase()),
+    fuzzySearch(searchTerm, meme.name),
   );
 
   useEffect(() => {
@@ -94,7 +113,7 @@ const List = ({ list }: ListProps) => {
             ? `meme-option-${filteredList[highlightedIndex]?.id}`
             : undefined
         }
-        className="w-full bg-border border border-border rounded-xl px-5 py-3 text-cyan placeholder-coral focus:outline-none focus:ring-2 focus:bg-bg focus:ring-coral focus:text-coral  focus:border-transparent shadow-sm transition-all pr-12 cursor-pointer"
+        className="w-full bg-border border border-border rounded-xl px-5 py-3 text-cyan placeholder-coral focus:outline-none focus:ring-2 focus:bg-bg focus:ring-coral focus:text-coral focus:border-transparent shadow-sm transition-all pr-12 cursor-pointer"
         placeholder="Search a meme..."
         value={isOpen ? searchTerm : state.meme?.name || ''}
         onChange={(e) => {
